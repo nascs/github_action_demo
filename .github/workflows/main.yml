@@ -1,0 +1,66 @@
+name: Build wiringX
+on: 
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Installation depends
+      run: |
+        echo "to prepare the env ..."
+        sudo apt-get update
+        echo "== install python env =="
+        sudo apt-get install -y python2-dev python2.7 python-dev-is-python3 python3 python3.9
+        sudo apt-get install -y git build-essential swig  libnode-dev  cmake libjson-c-dev libc6 libgcc1 libstdc++6   libgtest-dev pkg-config cmake-data
+        echo "env ok ..."
+    - name: Clone source code
+      run: |
+        echo "to get the source code !"
+        git clone https://github.com/nascs/wiringX.git
+
+    - name: Build
+      run: |
+        echo "to build wiringX"
+        cd wiringX
+        mkdir build
+        cd build
+        cmake ..
+        make -j8
+        cpack -G DEB
+    - name : Upload artifact
+      uses: actions/upload-artifact@master
+      with:
+        name: github_action_demo
+        path: /home/runner/work/github_action_demo/github_action_demo/wiringX/build/libwiringx*.deb
+
+  release:
+    needs: build
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download deb package
+        uses: actions/download-artifact@v2
+        with:
+          name: github_action_demo
+          path: /home/runner/work/github_action_demo/github_action_demo/wiringX/build/
+
+      - name: Create release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: v1.0
+          release_name: Release 1.0
+
+      - name: Upload release asset
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./path/to/downloaded/deb/package/*.deb
+          asset_name: my-package.deb
+          asset_content_type: application/octet-stream
