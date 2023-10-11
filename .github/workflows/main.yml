@@ -28,6 +28,7 @@ jobs:
         cmake ..
         make -j8
         cpack -G DEB
+        echo  pwd
     - name : Upload artifact
       uses: actions/upload-artifact@master
       with:
