@@ -89,6 +89,9 @@ jobs:
         ls *.deb
         wiringX_deb_file=$(ls *.deb)
         echo "where is deb file: $wiringX_deb_file"
+    - name: Check files
+      run: |
+        ls -R github_action_demo
     - name : Upload artifact
       uses: actions/upload-artifact@v3
       with:
