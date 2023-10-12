@@ -29,6 +29,7 @@ jobs:
         make -j8
         cpack -G DEB
         echo  "============== $PWD =============="
+        echo "$ls"
     - name : Upload artifact
       uses: actions/upload-artifact@v3
       with:
