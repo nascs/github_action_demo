@@ -41,38 +41,8 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: release package
-        uses: actions/download-artifact@v2
-        with:
-          name: github_action_demo
-          path: ${{github.workspace}}/artifact/
-  # release:
-  #   needs: build
-
-  #   runs-on: ubuntu-latest
-
-  #   steps:
-  #     - name: find deb package
-  #       uses: actions/download-artifact@v2
-  #       with:
-  #         name: github_action_demo
-  #         path: /home/runner/work/github_action_demo/github_action_demo/wiringX/build/
-
-  #     - name: Create release
-  #       id: create_release
-  #       uses: actions/create-release@v1
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #       with:
-  #         tag_name: v1.6
-  #         release_name: Release 1.6
-
-  #     - name: Upload release asset
-  #       uses: actions/upload-release-asset@v1
-  #       env:
-  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  #       with:
-  #         upload_url: ${{ steps.create_release.outputs.upload_url }}
-  #         asset_path: "/home/runner/work/github_action_demo/github_action_demo/wiringX/build/*.deb"
-  #         asset_name: "libwiringx*.deb"
-  #         asset_content_type: application/octet-stream
+    - name: upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: github_action_demo
+        path: github_action_demo/**/*.deb
