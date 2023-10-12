@@ -49,5 +49,5 @@ jobs:
         echo "========== $PWD ================"
         ls *.deb
       with:
-        name: *.deb
+        name: libwiringx*.deb
         path: github_action_demo/**/*.deb
