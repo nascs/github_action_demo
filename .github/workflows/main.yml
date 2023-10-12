@@ -33,7 +33,7 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: github_action_demo
-        path: *.deb
+        path: github_action_demo/**/*.deb
 
 
   # release:
