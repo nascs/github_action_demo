@@ -30,12 +30,12 @@ jobs:
         cpack -G DEB
         echo  "============== $PWD =============="
         ls *.deb
-        deb_file=$(ls *.deb)
-        echo "deb_file: $deb_file"
+        wiringX_deb_file=$(ls *.deb)
+        echo "where is deb file: $wiringX_deb_file"
     - name : Upload artifact
       uses: actions/upload-artifact@v3
       with:
-        name: ${{deb_file}}
+        name: ${{ wiringX_deb_file }}
         path: |
           github_action_demo/**/*.deb
 
