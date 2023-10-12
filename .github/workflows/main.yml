@@ -1,43 +1,43 @@
-name: Build wiringX
-on: 
-  push:
+# name: Build wiringX
+# on: 
+#   push:
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-    - name: Installation depends
-      run: |
-        echo "to prepare the env ..."
-        sudo apt-get update
-        echo "== install python env =="
-        sudo apt-get install -y python2-dev python2.7 python-dev-is-python3 python3 python3.9
-        sudo apt-get install -y git build-essential swig  libnode-dev  cmake libjson-c-dev libc6 libgcc1 libstdc++6   libgtest-dev pkg-config cmake-data
-        echo "env ok ..."
-    - name: Clone source code
-      run: |
-        echo "to get the source code !"
-        git clone https://github.com/nascs/wiringX.git
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Installation depends
+#       run: |
+#         echo "to prepare the env ..."
+#         sudo apt-get update
+#         echo "== install python env =="
+#         sudo apt-get install -y python2-dev python2.7 python-dev-is-python3 python3 python3.9
+#         sudo apt-get install -y git build-essential swig  libnode-dev  cmake libjson-c-dev libc6 libgcc1 libstdc++6   libgtest-dev pkg-config cmake-data
+#         echo "env ok ..."
+#     - name: Clone source code
+#       run: |
+#         echo "to get the source code !"
+#         git clone https://github.com/nascs/wiringX.git
 
-    - name: Build
-      run: |
-        echo "to build wiringX"
-        cd wiringX
-        mkdir build
-        cd build
-        cmake ..
-        make -j8
-        cpack -G DEB
-        echo  "============== $PWD =============="
-        ls *.deb
-        wiringX_deb_file=$(ls *.deb)
-        echo "where is deb file: $wiringX_deb_file"
-    - name : Upload artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: wiringX_deb_file
-        path: |
-          github_action_demo/**/*.deb
+#     - name: Build
+#       run: |
+#         echo "to build wiringX"
+#         cd wiringX
+#         mkdir build
+#         cd build
+#         cmake ..
+#         make -j8
+#         cpack -G DEB
+#         echo  "============== $PWD =============="
+#         ls *.deb
+#         wiringX_deb_file=$(ls *.deb)
+#         echo "where is deb file: $wiringX_deb_file"
+#     - name : Upload artifact
+#       uses: actions/upload-artifact@v3
+#       with:
+#         name: {{ wiringX_deb_file }}
+#         path: |
+#           github_action_demo/**/*.deb
 
   # release:
   #   needs: build
@@ -53,3 +53,45 @@ jobs:
   #     with:
   #       name: libwiringx*.deb
   #       path: github_action_demo/**/*.deb
+
+
+  yaml
+  on: 
+    push:
+  
+  jobs:
+    build:
+      runs-on: ubuntu-latest
+      steps:
+      - name: Installation depends
+        run: |
+          echo "to prepare the env ..."
+          sudo apt-get update
+          echo "== install python env =="
+          sudo apt-get install -y python2-dev python2.7 python-dev-is-python3 python3 python3.9
+          sudo apt-get install -y git build-essential swig  libnode-dev  cmake libjson-c-dev libc6 libgcc1 libstdc++6   libgtest-dev pkg-config cmake-data
+          echo "env ok ..."
+      - name: Clone source code
+        run: |
+          echo "to get the source code !"
+          git clone https://github.com/nascs/wiringX.git
+  
+      - name: Build
+        run: |
+          echo "to build wiringX"
+          cd wiringX
+          mkdir build
+          cd build
+          cmake ..
+          make -j8
+          cpack -G DEB
+          echo  "============== $PWD =============="
+          ls *.deb
+          wiringX_deb_file=$(ls *.deb)
+          echo "where is deb file: $wiringX_deb_file"
+      - name : Upload artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: Build wiringX
+          path: |
+            github_action_demo/**/*.deb
