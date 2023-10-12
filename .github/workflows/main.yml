@@ -29,7 +29,7 @@ jobs:
         make -j8
         cpack -G DEB
         echo  "============== $PWD =============="
-        echo "ls github_action_demo/**/*.deb"
+        ls github_action_demo/**/*.deb
     - name : Upload artifact
       uses: actions/upload-artifact@v3
       with:
