@@ -35,14 +35,21 @@ jobs:
         name: github_action_demo
         path: github_action_demo/github_action_demo/wiringX/build/
 
-  release:
-    needs: build
-
-    runs-on: ubuntu-latest
-
-    steps:
     - name: upload artifact
       uses: actions/upload-artifact@v3
       with:
         name: github_action_demo
         path: github_action_demo/**/*.deb
+
+
+  # release:
+  #   needs: build
+
+  #   runs-on: ubuntu-latest
+
+  #   steps:
+  #   - name: upload artifact
+  #     uses: actions/upload-artifact@v3
+  #     with:
+  #       name: github_action_demo
+  #       path: github_action_demo/**/*.deb
