@@ -35,7 +35,7 @@ jobs:
     - name : Upload artifact
       uses: actions/upload-artifact@v3
       with:
-        name: ${{ wiringX_deb_file }}
+        name: wiringX_deb_file
         path: |
           github_action_demo/**/*.deb
 
