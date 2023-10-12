@@ -46,8 +46,8 @@ jobs:
     - name: upload artifact
       uses: actions/upload-artifact@v3
       run: |
-      echo "========== $PWD ================"
-      ls *.deb
+        echo "========== $PWD ================"
+        ls *.deb
       with:
         name: *.deb
         path: github_action_demo/**/*.deb
