@@ -33,12 +33,6 @@ jobs:
       uses: actions/upload-artifact@master
       with:
         name: github_action_demo
-        path: github_action_demo/github_action_demo/wiringX/build/
-
-    - name: upload artifact
-      uses: actions/upload-artifact@v3
-      with:
-        name: github_action_demo
         path: github_action_demo/**/*.deb
 
 
