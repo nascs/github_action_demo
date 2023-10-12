@@ -30,10 +30,10 @@ jobs:
         cpack -G DEB
         echo  "============== $PWD =============="
     - name : Upload artifact
-      uses: actions/upload-artifact@master
+      uses: actions/upload-artifact@v3
       with:
         name: github_action_demo
-        path: github_action_demo/**/*.deb
+        path: *.deb
 
 
   # release:
