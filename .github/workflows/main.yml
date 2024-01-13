@@ -78,7 +78,7 @@ jobs:
 
     - name: Build
       run: |
-        echo "to build wiringX"
+        echo "to build wiringX && PWD: $PWD"
         cd wiringX
         mkdir build
         cd build
