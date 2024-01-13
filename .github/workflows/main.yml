@@ -79,6 +79,7 @@ jobs:
     - name: Set up build env
       run: |
         echo "to build wiringX && PWD: $PWD"
+        ls 
         cd wiringX
         mkdir build
         cd build
