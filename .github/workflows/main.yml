@@ -76,25 +76,24 @@ jobs:
         echo "to get the source code !"
         git clone https://github.com/nascs/wiringX.git
 
-    - name: Build
+    - name: Set up build env
       run: |
         echo "to build wiringX && PWD: $PWD"
         cd wiringX
         mkdir build
         cd build
         cmake ..
+      working-directory: ./build
+    - name: Build Project
+      run: |
         make -j8
         cpack -G DEB
         echo  "============== $PWD =============="
         ls *.deb
-        wiringX_deb_file=$(ls *.deb)
-        echo "where is deb file: $wiringX_deb_file"
-    - name: Check files
-      run: |
-        ls -R **/github_action_demo
-    - name : Upload artifact
-      uses: actions/upload-artifact@v3
+        echo "============== Build complete =============="
+      working-directory: ./build
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
       with:
-        name: Build wiringX
-        path: |
-          github_action_demo/**/*.deb
+        name: wiringx-deb
+        path: ./*.deb
