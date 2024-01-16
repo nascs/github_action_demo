@@ -75,6 +75,7 @@ jobs:
       run: |
         echo "to get the source code !"
         git clone https://github.com/nascs/wiringX.git
+        echo "===========  $PWD ========"
       working-directory: ./build
 
     - name: Set up build env
