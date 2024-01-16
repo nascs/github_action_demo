@@ -49,9 +49,9 @@ jobs:
         echo  "============== $PWD =============="
         ls *.deb
         echo "============== Build complete =============="
-      # working-directory: build
+
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
         name: wiringx-deb
-        path: ./*.deb
+        path: $WORK_DIR/wiringX/libwiringx*.deb
