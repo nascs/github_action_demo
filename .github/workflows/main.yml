@@ -74,9 +74,10 @@ jobs:
     - name: Clone source code
       run: |
         echo "to get the source code !"
+        mkdir wiringX_action && cd wiringX_action
         git clone https://github.com/nascs/wiringX.git
         echo "===========  $PWD ========"
-      working-directory: build
+      working-directory: wiringX_action
 
     - name: Set up build env
       run: |
@@ -87,7 +88,7 @@ jobs:
         mkdir build
         cd build
         cmake ..
-      working-directory: build
+      # working-directory: build
     - name: Build Project
       run: |
         make -j8
