@@ -54,4 +54,4 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: wiringx-deb
-        path: $WORK_DIR/wiringX/libwiringx*.deb
+        path: $WORK_DIR/wiringX/build/libwiringx*.deb
