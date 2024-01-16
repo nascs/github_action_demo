@@ -55,4 +55,3 @@ jobs:
       with:
         name: wiringx-deb
         path: $WORK_DIR/wiringX/build/libwiringx*.deb
-      run: |
