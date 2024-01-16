@@ -4,7 +4,7 @@ on:
   push:
 
 jobs:
-  build:
+  Build:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
@@ -45,19 +45,33 @@ jobs:
         cp ${{ github.workspace }}/wiringX/build/libwiringx*.deb $GITHUB_WORKSPACE/libwiringX.deb
         echo "============== Build complete =============="
 
-  Upload_artifact:
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: wiringx-deb
+        path: $GITHUB_WORKSPACE/libwiringX.deb
+        if-no-files-found: error
+
+
+  Release:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    needs: build
+    needs: Build
 
     steps:
       - name: Checkout package
         uses: actions/download-artifact@v3
-
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      
+      - name: Create release
+        uses: actions/create-release@v1
         with:
-          name: wiringx-deb
-          path: $GITHUB_WORKSPACE/libwiringX.deb
-          if-no-files-found: error
+          tag_name: tag_v1
+          name: Release_V1
+          body: TODO New Release.
+          release_name: libwiringX_v1
+          draft: false
+          prerelease: false
+          files: |
+            $GITHUB_WORKSPACE/libwiringX.deb
+            LICENSE
