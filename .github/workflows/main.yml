@@ -27,7 +27,7 @@ jobs:
     - name: Set up build env
       run: |
         ls
-        echo "======================= $CURRENT_DIR ======================="
+        echo $CURRENT_DIR
         echo "to build wiringX && PWD: $PWD"
         echo "============== $ls ==============" 
         cd wiringX
