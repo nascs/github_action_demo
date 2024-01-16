@@ -42,15 +42,19 @@ jobs:
         export CC=/usr/bin/gcc
         make -j8
         cpack -G DEB
+        cp ${{ github.workspace }}/wiringX/build/libwiringx*.deb $GITHUB_WORKSPACE/libwiringX.deb
         echo "============== Build complete =============="
 
   Upload_artifact:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: Checkout package
+        uses: actions/checkout@v2
+
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
           name: wiringx-deb
-          path: ${{ github.workspace }}/wiringX/build/libwiringx*.deb
+          path: $GITHUB_WORKSPACE/libwiringX.deb
           if-no-files-found: error
