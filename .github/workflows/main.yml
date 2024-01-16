@@ -48,11 +48,12 @@ jobs:
         cpack -G DEB
         echo  "============== $PWD =============="
         echo $WORK_DIR/wiringX/build/libwiringx*.deb
+        echo ${{ github.workspace }}/
         echo "============== Build complete =============="
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
         name: wiringx-deb
-        path: $WORK_DIR/wiringX/build/libwiringx*.deb
+        path: ${{ github.workspace }}/wiringX/build/libwiringx*.deb
         if-no-files-found: error
