@@ -86,7 +86,7 @@ jobs:
         mkdir build
         cd build
         cmake ..
-      working-directory: ./build
+      working-directory: build
     - name: Build Project
       run: |
         make -j8
@@ -94,7 +94,7 @@ jobs:
         echo  "============== $PWD =============="
         ls *.deb
         echo "============== Build complete =============="
-      # working-directory: ./build
+      working-directory: build
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
