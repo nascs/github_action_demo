@@ -18,19 +18,16 @@ jobs:
     - name: Clone source code
       run: |
         echo "to get the source code !"
-        # mkdir wiringX_action && cd wiringX_action
         git clone https://github.com/nascs/wiringX.git
-        # echo "===========  $PWD ========"
-        echo "CURRENT_DIR=$(pwd)" >> $GITHUB_ENV
-      # working-directory: wiringX_action
-
+        echo $PWD
+        echo "WORK_DIR=$(pwd)" >> $GITHUB_ENV
+        # /home/runner/work/github_action_demo/github_action_demo
     - name: Set up build env
       run: |
-        ls
-        echo $CURRENT_DIR
+        cd $WORK_DIR/wiringX
+        echo $WORK_DIR/wiringX
         echo "to build wiringX && PWD: $PWD"
         echo "============== $ls ==============" 
-        cd wiringX
         mkdir build
         cd build
         cmake ..
