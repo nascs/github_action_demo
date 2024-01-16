@@ -25,29 +25,24 @@ jobs:
       run: |
         echo "to get the source code !"
         git clone https://github.com/nascs/wiringX.git
-        echo $PWD
-        echo "WORK_DIR=$(pwd)" >> $GITHUB_ENV
-        # /home/runner/work/github_action_demo/github_action_demo
 
     - name: Set up build env
       run: |
         export CC=/usr/bin/gcc
-        cd $WORK_DIR/wiringX
-        echo $WORK_DIR/wiringX
-        echo "to build wiringX && PWD: $PWD"
-        echo "============== $ls ==============" 
+        cd ${{ github.workspace }}/wiringX
+        echo ${{ github.workspace }}/wiringX
         mkdir build
         cd build
         cmake ..
 
     - name: Build Project
       run: |
-        cd $WORK_DIR/wiringX/build
+        cd ${{ github.workspace }}/wiringX/build
         export CC=/usr/bin/gcc
         make -j8
         cpack -G DEB
         echo  "============== $PWD =============="
-        echo $WORK_DIR/wiringX/build/libwiringx*.deb
+        echo ${{ github.workspace }}/wiringX/build/libwiringx*.deb
         echo ${{ github.workspace }}/
         echo "============== Build complete =============="
 
