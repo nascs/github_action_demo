@@ -13,7 +13,7 @@ jobs:
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v2
       with:
-        platform: arm64
+        platforms: arm64
 
     - name: Installation depends
       run: |
