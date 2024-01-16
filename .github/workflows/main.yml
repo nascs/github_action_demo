@@ -20,12 +20,14 @@ jobs:
         echo "to get the source code !"
         # mkdir wiringX_action && cd wiringX_action
         git clone https://github.com/nascs/wiringX.git
-        echo "===========  $PWD ========"
+        # echo "===========  $PWD ========"
+        echo "CURRENT_DIR=$(pwd)" >> $GITHUB_ENV
       # working-directory: wiringX_action
 
     - name: Set up build env
       run: |
         ls
+        echo "======================= $CURRENT_DIR ======================="
         echo "to build wiringX && PWD: $PWD"
         echo "============== $ls ==============" 
         cd wiringX
