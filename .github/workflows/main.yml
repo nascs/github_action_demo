@@ -47,7 +47,7 @@ jobs:
         make -j8
         cpack -G DEB
         echo  "============== $PWD =============="
-        ls *.deb
+        echo $WORK_DIR/wiringX/build/libwiringx*.deb
         echo "============== Build complete =============="
 
     - name: Upload artifact
@@ -55,3 +55,4 @@ jobs:
       with:
         name: wiringx-deb
         path: $WORK_DIR/wiringX/build/libwiringx*.deb
+      run: |
