@@ -7,8 +7,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - name: Set platform env
+    - name: Checkout
       uses: actions/checkout@v4
+
+    - name: Set up QEMU
+      uses: docker/setup-qemu-action@4
+      with:
+        platform: arm64
 
     - name: Installation depends
       run: |
