@@ -62,7 +62,11 @@ jobs:
 
     steps:
     - name: Create Release
-      uses: go-release-action@v1.30
+      uses: nascs/github_action_demo@master
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        binary_name: ${{ github.workspace }}/wiringX/build/libwiringx*.deb
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: v1.1
+        title: release_v1.1
+        prerelease: false
+        files: |
+          ${{ github.workspace }}/wiringX/build/libwiringx*.deb
