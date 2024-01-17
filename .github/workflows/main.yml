@@ -53,18 +53,17 @@ jobs:
     - name: Find files
       id: find_files
       run: |
-        # echo "::set-env name=files::$(find ${{ github.workspace }}/wirngX/build/ -type f -name '*.deb')"
-        echo "DEB_FILES=$(find ${{ github.workspace }}/wiringX/build -name '*.deb' -type f)" >> $GITHUB_ENV
-    - name: Set artifact
-      id: set_artifact
-      run: |
-        echo "ARTIFACT_NAME=deb-files-$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
+        echo "::set-output name=deb_files::$(find ${{ github.workspace }}/wiringX/build -name '*.deb' -type f)"
+    # - name: Set artifact
+    #   id: set_artifact
+    #   run: |
+    #     echo "ARTIFACT_NAME=deb-files-$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: ${{ env.ARTIFACT_NAME }}
-        path: ${{ env.DEB_FILES }}
+        name: deb_files
+        path: ${{ steps.find_files.outputs.deb_files }}
         if-no-files-found: error
 
   # Release:
