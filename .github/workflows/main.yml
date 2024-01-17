@@ -57,12 +57,12 @@ jobs:
     # - name: Set artifact
     #   id: set_artifact
     #   run: |
-    #     echo "ARTIFACT_NAME=deb-files-$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
+    #     echo "ARTIFACT_NAME=libwiringX-$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
 
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: deb_files
+        name: libwiringX-$(date +'%Y%m%d-%H%M%S')
         path: ${{ steps.find_files.outputs.deb_files }}
         if-no-files-found: error
 
