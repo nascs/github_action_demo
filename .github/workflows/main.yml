@@ -62,16 +62,11 @@ jobs:
 
     steps:
     - name: Create release
-      id: create_release
-      uses: actions/create-release@v1
+      uses: marvinpinto/action-automatic-releases@latest
       with:
-        tag_name: ${{ github.ref }}
-        release_name: My Release
-        body: |
-          Release created from tag: ${{ github.ref }}
-      if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/')
-        # automatic_release_tag: ${{ env.ReleaseVersion }}
-        # title: ${{ env.ReleaseVersion }}
-        # prerelease: false
-        # files: |
-        #   ${{ github.workspace }}/wiringX/build/libwiringx*.deb
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: ${{ env.ReleaseVersion }}
+        title: ${{ env.ReleaseVersion }}
+        prerelease: false
+        files: |
+          ${{ github.workspace }}/wiringX/build/libwiringx*.deb
