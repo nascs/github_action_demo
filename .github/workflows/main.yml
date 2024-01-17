@@ -2,6 +2,8 @@ name: Build wiringX
 
 on: 
   push:
+    branches:
+      master
     tags: true
 
 jobs:
