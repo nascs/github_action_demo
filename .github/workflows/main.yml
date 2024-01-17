@@ -61,12 +61,9 @@ jobs:
     needs: Build
 
     steps:
-    - name: Create release
-      uses: marvinpinto/action-automatic-releases@latest
+    - name: Create Release
+      uses: ncipollo/release-action@v1.13.0
       with:
-        repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: ${{ env.ReleaseVersion }}
-        title: ${{ env.ReleaseVersion }}
-        prerelease: false
-        files: |
-          ${{ github.workspace }}/wiringX/build/libwiringx*.deb
+        name: wiringX-deb
+        artifacts: ${{ github.workspace }}/wiringX/build/libwiringx*.deb
+  
