@@ -52,25 +52,27 @@ jobs:
         if-no-files-found: error
 
 
-  Release:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    needs: Build
+  # Release:
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: write
+  #   needs: Build
 
-    steps:
-      - name: Checkout package
-        uses: actions/download-artifact@v3
+  #   steps:
+  #     - name: Checkout package
+  #       uses: actions/download-artifact@v3
       
-      - name: Create release
-        uses: actions/create-release@v1
-        with:
-          tag_name: tag_v1
-          name: Release_V1
-          body: TODO New Release.
-          release_name: libwiringX_v1
-          draft: false
-          prerelease: false
-          files: |
-            $GITHUB_WORKSPACE/libwiringX.deb
-            LICENSE
+  #     - name: Create release
+  #       uses: actions/create-release@v1
+  #       with:
+  #         tag_name: tag_v1
+  #         name: Release_V1
+  #         body: TODO New Release.
+  #         body_path: $GITHUB_WORKSPACE/
+  #         release_name: libwiringX_v1
+  #         draft: false
+  #         prerelease: false
+  #         files: |
+  #           libwiringX.deb
+  #           LICENSE
+ 
