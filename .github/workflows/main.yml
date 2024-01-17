@@ -62,8 +62,13 @@ jobs:
     needs: Build
 
     steps:
-    - name: Create Release
-      uses: ncipollo/release-action@v1.5.0
-      with:
-        artifacts: ${{ github.workspace }}/wiringX/build/libwiringx*.deb
-        token: ${{ secrets.MY_GITHUB_RELEASE_TOKEN}}
+      - name: Uploading assets...
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_RELEASE_TOKEN }}
+        with:
+          upload_url: ${{ github.event.release.upload_url }}
+          asset_path: ${{ github.workspace }}/wiringX/build/
+          asset_name: wiringX-deb
+          asset_content_type: application/gzip
