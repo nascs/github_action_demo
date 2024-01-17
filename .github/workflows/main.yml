@@ -50,41 +50,45 @@ jobs:
         cpack -G DEB
         echo "============== Build complete =============="
 
+    - name: Find files
+      id: find_files
+      run: |
+        echo "::set-output name=files::$(find ${{ github.workspace }}/wirngX/build/ -type f -name '*.deb')"
     - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
-        name: wiringx-deb
-        path: ${{ github.workspace }}/wiringX/build/libwiringx*.deb
+        name: ${{ steps.find_files.outputs.artifact_name }}
+        path: ${{ github.workspace }}/wiringX/build/
         if-no-files-found: error
 
-  Release:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    needs: Build
+  # Release:
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: write
+  #   needs: Build
 
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v2
 
-      - name: Create release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          tag_name: ${{ github.ref }}
-          release_name: Release ${{ github.ref }}
-          draft: false
-          prerelease: false
+  #     - name: Create release
+  #       id: create_release
+  #       uses: actions/create-release@v1
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #       with:
+  #         tag_name: ${{ github.ref }}
+  #         release_name: Release ${{ github.ref }}
+  #         draft: false
+  #         prerelease: false
 
-      - name: Uploading assets...
-        id: upload_and_asset
-        uses: actions/upload-release-asset@v1
-        env: 
-          GITHUB_TOKEN: ${{ secrets.MY_GITHUB_RELEASE_TOKEN_PERMISION }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ github.workspace }}/wiringX/build/libwiringx*.deb
-          asset_name: wiringX-deb
-          asset_content_type: application/zip
+  #     - name: Uploading assets...
+  #       id: upload_and_asset
+  #       uses: actions/upload-release-asset@v1
+  #       env: 
+  #         GITHUB_TOKEN: ${{ secrets.MY_GITHUB_RELEASE_TOKEN_PERMISION }}
+  #       with:
+  #         upload_url: ${{ steps.create_release.outputs.upload_url }}
+  #         asset_path: ${{ github.workspace }}/wiringX/build/libwiringx*.deb
+  #         asset_name: wiringX-deb
+  #         asset_content_type: application/zip
