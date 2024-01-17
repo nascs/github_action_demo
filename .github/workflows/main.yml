@@ -51,28 +51,19 @@ jobs:
         path: ${{ github.workspace }}/wiringX/build/libwiringx*.deb
         if-no-files-found: error
 
+  Release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    needs: Build
 
-  # Release:
-  #   runs-on: ubuntu-latest
-  #   permissions:
-  #     contents: write
-  #   needs: Build
-
-  #   steps:
-  #     - name: Checkout package
-  #       uses: actions/download-artifact@v3
-      
-  #     - name: Create release
-  #       uses: actions/create-release@v1
-  #       with:
-  #         tag_name: tag_v1
-  #         name: Release_V1
-  #         body: TODO New Release.
-  #         body_path: $GITHUB_WORKSPACE/
-  #         release_name: libwiringX_v1
-  #         draft: false
-  #         prerelease: false
-  #         files: |
-  #           libwiringX.deb
-  #           LICENSE
- 
+    steps:
+    - name: Release
+      uses: marvinpinto/action-automatic-releases@latest
+      with:
+        repo_token: "${{ secrets.GITHUB_TOKEN }}"
+        automatic_release_tag: ${{ env.ReleaseVersion }}
+        title: ${{ env.ReleaseVersion }}
+        prerelease: false
+        files: |
+          ${{ github.workspace }}/wiringX/build/libwiringx*.deb
