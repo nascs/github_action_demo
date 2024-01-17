@@ -62,8 +62,7 @@ jobs:
 
     steps:
     - name: Create Release
-      uses: ncipollo/release-action@v1.13.0
+      uses: go-release-action@v1.30
       with:
-        name: wiringX-deb
-        artifacts: ${{ github.workspace }}/wiringX/build/libwiringx*.deb
-  
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        binary_name: ${{ github.workspace }}/wiringX/build/libwiringx*.deb
