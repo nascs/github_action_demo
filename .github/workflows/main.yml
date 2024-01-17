@@ -62,11 +62,7 @@ jobs:
 
     steps:
     - name: Create Release
-      uses: nascs/github_action_demo@master
+      uses: ncipollo/release-action@v1.13.0
       with:
-        repo_token: "${{ secrets.GITHUB_TOKEN }}"
-        automatic_release_tag: v1.1
-        title: release_v1.1
-        prerelease: false
-        files: |
-          ${{ github.workspace }}/wiringX/build/libwiringx*.deb
+        artifacts: ${{ github.workspace }}/wiringX/build/libwiringx*.deb
+        token: ${{ secrets.GITHUB_RElEASE_TOKEN }}
