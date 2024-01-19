@@ -60,12 +60,12 @@ jobs:
         run: |
           echo "ARTIFACT_NAME=libwiringX-$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
 
-      # - name: Upload artifact
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: ${{ env.ARTIFACT_NAME }}
-      #     path: ${{ steps.find_files.outputs.deb_files }}
-      #     if-no-files-found: error
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.ARTIFACT_NAME }}
+          path: ${{ steps.find_files.outputs.deb_files }}
+          if-no-files-found: error
     
       - name: Create Release
         id: create_release
@@ -85,7 +85,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.MY_GITHUB_RELEASE_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: ${{ github.workspace }}/wiringX/build/
-          asset_name: ${{ env.ARTIFACT_NAME }}
-          asset_content_type: application/zip
+          asset_path: ${{ github.workspace }}/wiringX/build/libwiringx*.deb
+          asset_name: libwiringX.deb
+          asset_content_type: application/zip/deb
 
