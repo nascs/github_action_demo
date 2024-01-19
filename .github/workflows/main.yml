@@ -1,145 +1,72 @@
-# name: Build wiringX
+name: Upload && Release wiringX Asset
 
-# on: 
-#   push:
-#     branches:
-#       master
-#     tags: 
-#     - 'v*'
-
-# permissions: write-all
-
-# jobs:
-#   Build:
-#     runs-on: ubuntu-latest
-#     steps:
-#     - name: Checkout
-#       uses: actions/checkout@v4
-
-#     - name: Set up QEMU
-#       uses: docker/setup-qemu-action@v2
-#       with:
-#         platforms: arm64
-
-#     - name: Installation depends
-#       run: |
-#         echo " ============== to prepare the env ============== "
-#         sudo apt-get update -y
-#         sudo apt-get install -y python2-dev python2.7 python-dev-is-python3 python3 python3.9
-#         sudo apt-get install -y git build-essential swig  libnode-dev  cmake libjson-c-dev libc6 libgcc1 libstdc++6   libgtest-dev pkg-config cmake-data
-
-#     - name: Clone source code
-#       run: |
-#         echo " ============== to get the source code ! ============== "
-#         git clone https://github.com/nascs/wiringX.git
-
-#     - name: Set up build env
-#       run: |
-#         export CC=/usr/bin/gcc
-#         cd ${{ github.workspace }}/wiringX
-#         echo ${{ github.workspace }}/wiringX
-#         mkdir build
-#         cd build
-#         cmake ..
-
-#     - name: Build Project
-#       run: |
-#         cd ${{ github.workspace }}/wiringX/build
-#         export CC=/usr/bin/gcc
-#         make -j8
-#         cpack -G DEB
-#         echo "============== Build complete =============="
-
-#     - name: Find files
-#       id: find_files
-#       run: |
-#         echo "::set-output name=deb_files::$(find ${{ github.workspace }}/wiringX/build -name '*.deb' -type f)"
-#     - name: Set artifact
-#       id: set_artifact
-#       run: |
-#         echo "ARTIFACT_NAME=libwiringX-$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
-
-#     - name: Upload artifact
-#       uses: actions/upload-artifact@v4
-#       with:
-#         name: ${{ env.ARTIFACT_NAME }}
-#         path: ${{ steps.find_files.outputs.deb_files }}
-#         if-no-files-found: error
-  
-#     - name: Create Release
-#       id: create_release
-#       uses: actions/create-release@v1
-#       env:
-#         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#       with:
-#         tag_name: ${{ github.ref }}
-#         release_name: Release ${{ github.ref }}
-#         draft: false
-#         prerelease: false
-
-#     - name: Release asset
-#       id: upload-release-asset
-#       uses: actions/upload-release-asset@v1
-#       env:
-#         GITHUB_TOKEN: ${{ secrets.RW_GITHUB_TOKEN }}
-#       with:
-#         upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-#         asset_path: ./my-artifact.zip
-#         asset_name: my-artifact.zip
-#         asset_content_type: application/zip
-
-#   # Release:
-#   #   runs-on: ubuntu-latest
-#   #   permissions:
-#   #     contents: write
-#   #   needs: Build
-
-#   #   steps:
-#   #     - name: Checkout code
-#   #       uses: actions/checkout@v2
-
-#   #     - name: Create release
-#   #       id: create_release
-#   #       uses: actions/create-release@v1
-#   #       env:
-#   #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#   #       with:
-#   #         tag_name: ${{ github.ref }}
-#   #         release_name: Release ${{ github.ref }}
-#   #         draft: false
-#   #         prerelease: false
-
-#   #     - name: Uploading assets...
-#   #       id: upload_and_asset
-#   #       uses: actions/upload-release-asset@v1
-#   #       env: 
-#   #         GITHUB_TOKEN: ${{ secrets.RW_GITHUB_TOKEN_PERMISION }}
-#   #       with:
-#   #         upload_url: ${{ steps.create_release.outputs.upload_url }}
-#   #         asset_path: ${{ github.workspace }}/wiringX/build/libwiringx*.deb
-#   #         asset_name: wiringX-deb
-#   #         asset_content_type: application/zip
-
-on:
+on: 
   push:
-    # Sequence of patterns matched against refs/tags
-    tags:
-    - 'v*' # Push events to matching v*, i.e. v1.0, v20.15.10
+    branches:
+      master
+    tags: 
+    - 'v*'
 
-name: Upload Release Asset
+permissions: write-all
 
 jobs:
-  build:
-    name: Upload Release Asset
+  Build:
+    name: Upload && Release wiringX Asset
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      - name: Build project # This would actually build your project, using zip for an example artifact
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
+        with:
+          platforms: arm64
+
+      - name: Installation depends
         run: |
-          cd ${{ github.workspace }}/test_dir
-          gcc demo.c -o demo
-          zip demo.zip demo
+          echo " ============== to prepare the env ============== "
+          sudo apt-get update -y
+          sudo apt-get install -y python2-dev python2.7 python-dev-is-python3 python3 python3.9
+          sudo apt-get install -y git build-essential swig  libnode-dev  cmake libjson-c-dev libc6 libgcc1 libstdc++6   libgtest-dev pkg-config cmake-data
+
+      - name: Clone source code
+        run: |
+          echo " ============== to get the source code ! ============== "
+          git clone https://github.com/nascs/wiringX.git
+
+      - name: Set up build env
+        run: |
+          export CC=/usr/bin/gcc
+          cd ${{ github.workspace }}/wiringX
+          echo ${{ github.workspace }}/wiringX
+          mkdir build
+          cd build
+          cmake ..
+
+      - name: Build Project
+        run: |
+          cd ${{ github.workspace }}/wiringX/build
+          export CC=/usr/bin/gcc
+          make -j8
+          cpack -G DEB
+          echo "============== Build complete =============="
+
+      - name: Find files
+        id: find_files
+        run: |
+          echo "::set-output name=deb_files::$(find ${{ github.workspace }}/wiringX/build -name '*.deb' -type f)"
+      - name: Set artifact
+        id: set_artifact
+        run: |
+          echo "ARTIFACT_NAME=libwiringX-$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
+
+      # - name: Upload artifact
+      #   uses: actions/upload-artifact@v4
+      #   with:
+      #     name: ${{ env.ARTIFACT_NAME }}
+      #     path: ${{ steps.find_files.outputs.deb_files }}
+      #     if-no-files-found: error
+    
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -150,13 +77,15 @@ jobs:
           release_name: Release ${{ github.ref }}
           draft: false
           prerelease: false
-      - name: Upload Release Asset
-        id: upload-release-asset 
+
+      - name: Release asset
+        id: upload-release-asset
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.MY_GITHUB_RELEASE_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: ${{ github.workspace }}/test_dir/demo.zip
-          asset_name: demo.zip
+          asset_path: ${{ github.workspace }}/wiringX.build/
+          asset_name: ${{ env.ARTIFACT_NAME }}
           asset_content_type: application/zip
+
