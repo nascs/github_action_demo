@@ -51,14 +51,19 @@ jobs:
           cpack -G DEB
           echo "============== Build complete =============="
 
-      - name: Find files
-        id: find_files
+      - name: Rename file
         run: |
-          echo "::set-output name=deb_files::$(find ${{ github.workspace }}/wiringX/build -name '*.deb' -type f)"
-      - name: Set artifact
-        id: set_artifact
-        run: |
-          echo "ARTIFACT_NAME=libwiringX-$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
+          cd ${{ github.workspace }}/wiringX/build
+          cp libwiringx*.deb libwiringx.deb
+      
+      # - name: Find files
+      #   id: find_files
+      #   run: |
+      #     echo "::set-output name=deb_files::$(find ${{ github.workspace }}/wiringX/build -name '*.deb' -type f)"
+      # - name: Set artifact
+      #   id: set_artifact
+      #   run: |
+      #     echo "ARTIFACT_NAME=libwiringX-$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -85,7 +90,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.MY_GITHUB_RELEASE_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: ${{ github.workspace }}/wiringX/build/libwiringx*.deb
+          asset_path: ${{ github.workspace }}/wiringX/build/libwiringx.deb
           asset_name: libwiringX.deb
           asset_content_type: application/zip/deb
 
