@@ -55,22 +55,6 @@ jobs:
         run: |
           cd ${{ github.workspace }}/wiringX/build
           cp libwiringx*.deb libwiringx.deb
-
-      # - name: Find files
-      #   id: find_files
-      #   run: |
-      #     echo "::set-output name=deb_files::$(find ${{ github.workspace }}/wiringX/build -name '*.zip' -type f)"
-      # - name: Set artifact
-      #   id: set_artifact
-      #   run: |
-      #     echo "ARTIFACT_NAME=libwiringX-$(date +'%Y%m%d-%H%M%S')" >> $GITHUB_ENV
-
-      # - name: Upload artifact
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: ${{ env.ARTIFACT_NAME }}
-      #     path: ${{ steps.find_files.outputs.deb_files }}
-      #     if-no-files-found: error
     
       - name: Create Release
         id: create_release
